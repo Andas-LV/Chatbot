@@ -1,0 +1,12 @@
+.mainWrapper{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #2e363a;
+}
+.chatIcon{
+    position: fixed;
+    bottom: 20px;
+    right:20px;
+    cursor: pointer;
+}

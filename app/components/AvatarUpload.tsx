@@ -1,6 +1,6 @@
-"use client"
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import styles from './avatar.module.css'
 
 const AvatarUploader: React.FC = () => {
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -28,7 +28,7 @@ const AvatarUploader: React.FC = () => {
 
     return (
         <div>
-            <div {...getRootProps()} style={{ border: '2px dashed #eee', padding: '20px', textAlign: 'center' }}>
+            <div {...getRootProps()} className={styles.dropZone}>
                 <input {...getInputProps()} />
                 <p>Перетащите файл сюда или кликните, чтобы выбрать файл</p>
             </div>
@@ -40,7 +40,7 @@ const AvatarUploader: React.FC = () => {
             {uploadedImage && (
                 <div>
                     <h2>Загруженная картинка:</h2>
-                    <img src={uploadedImage} alt="Uploaded" style={{ maxWidth: '100%' }} />
+                    <img src={uploadedImage} alt="Uploaded" className={styles.image} />
                 </div>
             )}
         </div>
