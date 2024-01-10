@@ -1,13 +1,12 @@
 "use client"
 import React, { useState, ChangeEvent } from 'react';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import GeminiApi from '../../api/GeminiApi';
 import styles from '../pages.module.css';
 
 const Page = () => {
     const [prompt, setPrompt] = useState('');
     const [inputValue, setInputValue] = useState('');
-    const queryClient = useQueryClient(); // Access the query client instance
 
     const { data: generatedText, isLoading, isError } = useQuery([prompt], () => GeminiApi(prompt));
 
@@ -17,7 +16,6 @@ const Page = () => {
 
     const handleClick = () => {
         setPrompt(inputValue);
-        queryClient.invalidateQueries([prompt]);
     };
 
         return (
