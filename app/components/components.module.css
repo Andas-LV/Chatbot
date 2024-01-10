@@ -235,3 +235,9 @@
 .sendIcon {
     width: 17px;
 }
+
+.signUpBtn{
+    color: #4F46E5;
+    cursor: pointer;
+    margin-left: 5px;
+}

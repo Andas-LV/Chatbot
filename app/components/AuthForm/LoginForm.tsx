@@ -34,7 +34,7 @@ const  LoginForm = () => {
             </button>
             <p className={styles.signupLink}>
                 No account?
-                <a href="">Sign up</a>
+                <button className={styles.signUpBtn}>Sign up</button>
             </p>
         </form>
 
