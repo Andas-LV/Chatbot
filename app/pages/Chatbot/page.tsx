@@ -53,8 +53,6 @@ const Page: React.FC<PageProps> = ({ active, setActive }) => {
             </div>
         );
     }
-
-    return null;
 };
 
 export default Page;

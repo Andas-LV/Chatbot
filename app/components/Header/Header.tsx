@@ -1,4 +1,4 @@
-import styles from './components.module.css';
+import styles from '../components.module.css';
 import Auth from '@/app/pages/Login/page';
 import {useState} from "react";
 
