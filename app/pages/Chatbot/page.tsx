@@ -2,14 +2,9 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import GeminiApi from '../../api/GeminiApi';
-import styles from '@/app/components/components.module.css';
+import styles from '../pages.module.css';
 
-interface PageProps {
-    active: boolean;
-    setActive: (active: boolean) => void;
-}
-
-const Page: React.FC<PageProps> = () => {
+const Page = () => {
     const [prompt, setPrompt] = useState('');
     const [inputValue, setInputValue] = useState('');
     const queryClient = useQueryClient(); // Access the query client instance
