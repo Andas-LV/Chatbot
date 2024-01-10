@@ -9,7 +9,7 @@ interface PageProps {
     setActive: (active: boolean) => void;
 }
 
-const Page: React.FC<PageProps> = ({ active, setActive }) => {
+const Page: React.FC<PageProps> = () => {
     const [prompt, setPrompt] = useState('');
     const [inputValue, setInputValue] = useState('');
     const queryClient = useQueryClient(); // Access the query client instance
@@ -25,12 +25,11 @@ const Page: React.FC<PageProps> = ({ active, setActive }) => {
         queryClient.invalidateQueries([prompt]);
     };
 
-    if (active) {
         return (
             <div className={styles.container}>
                 <div className={styles.navBar}>
                     <a>Chat</a>
-                    <div className={styles.close} onClick={() => setActive(false)}>
+                    <div className={styles.close}>
                         <div className={styles.lineOne}></div>
                         <div className={styles.lineTwo}></div>
                     </div>
@@ -52,7 +51,6 @@ const Page: React.FC<PageProps> = ({ active, setActive }) => {
                 </div>
             </div>
         );
-    }
 };
 
 export default Page;
