@@ -1,0 +1,113 @@
+.Auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    transition: 0.4s all;
+    opacity: 1;
+    pointer-events: all;
+}
+.modal{
+    border-radius: 10px;
+    background-color: #1b1b1b;
+    color: white;
+}
+/*close btn*/
+.closeButton {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 4em;
+    height: 4em;
+    border: none;
+    background: rgb(46, 54, 58);
+    border-radius: 5px;
+    transition: background 0.5s;
+}
+
+.X {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2em;
+    height: 1.5px;
+    background-color: rgb(255, 255, 255);
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.Y {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2em;
+    height: 1.5px;
+    background-color: #fff;
+    transform: translateX(-50%) rotate(-45deg);
+}
+
+.close {
+    position: absolute;
+    display: flex;
+    padding: 0.8rem 1.5rem;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-50%);
+    top: -70%;
+    left: 50%;
+    width: 3em;
+    height: 1.7em;
+    font-size: 12px;
+    background-color: rgb(19, 22, 24);
+    color: rgb(187, 229, 236);
+    border: none;
+    border-radius: 3px;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.closeButton:hover {
+    background-color: rgb(211, 21, 21);
+}
+
+.closeButton:active {
+    background-color: rgb(130, 0, 0);
+}
+
+.closeButton:hover > .close {
+    animation: close 0.2s forwards 0.25s;
+}
+
+@keyframes close {
+    100% {
+        opacity: 1;
+    }
+}
+/*Go back*/
+.backBtn{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 4em;
+    height: 4em;
+    background-color: white;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: 0.8s;
+}
+.backBtn:hover{
+    gap: 15px;
+}
