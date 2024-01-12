@@ -13,8 +13,6 @@ const GeminiApi = async (prompt: string) => {
     console.log(result.response.text())
 
     return result.response.text().toString();
-
-
 };
 
 export default GeminiApi;

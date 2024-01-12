@@ -1,47 +1,68 @@
-"use client"
-import React, { useState, ChangeEvent } from 'react';
-import { useQuery } from 'react-query';
+// Main.tsx
+import React, { useState, ChangeEvent, useEffect, useCallback } from 'react';
 import GeminiApi from '../api/GeminiApi';
 import styles from '../page.module.css';
+import ChatMessages from '../components/ChatMessages';
+import SenderArea from '../components/SenderArea';
+
+type Message = string;
 
 export default function Main() {
     const [prompt, setPrompt] = useState('');
     const [inputValue, setInputValue] = useState('');
+    const [chat, setChat] = useState<Message[]>([]);
+    const [isEmpty, setIsEmpty] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
 
-    const { data: generatedText, isLoading, isError } = useQuery([prompt], () => GeminiApi(prompt));
-
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(e.target.value);
-    };
-
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
+        if (prompt == '') {
+            setIsEmpty(true);
+        }
         setPrompt(inputValue);
+        setInputValue('');
+    }, [inputValue, prompt]);
+
+    const fetchData = async () => {
+        setIsLoading(true);
+        try {
+            const response: Message = await GeminiApi(prompt);
+            setChat((prevChat: Message[]) => [...prevChat, response]);
+        } catch (error) {
+            setIsError(true);
+        } finally {
+            setIsLoading(false);
+        }
     };
+
+    const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        setInputValue(e.target.value);
+    }, []);
+
+    const handleClearChat = useCallback(() => {
+        setChat([]);
+    }, []);
+
+    useEffect(() => {
+        if (prompt !== '') {
+            fetchData();
+            setIsEmpty(false);
+        }
+    }, [prompt]);
 
     return (
         <div className={styles.container}>
             <div className={styles.navBar}>
                 <a>Chat</a>
-                <div className={styles.close}>
-                    <div className={styles.lineOne}></div>
-                    <div className={styles.lineTwo}></div>
-                </div>
             </div>
-            <div className={styles.messagesArea}>
-                <div className={styles.messageOne}>
-                    {isLoading && <p>Loading...</p>}
-                    {isError && <p>Error fetching data || Prompt cannot be empty</p>}
-                    {generatedText && <pre className={styles.generatedText}>{generatedText}</pre>}
-                </div>
-            </div>
-            <div className={styles.senderArea}>
-                <div className={styles.inputPlace}>
-                    <input type="text" value={inputValue} onChange={handleInputChange} placeholder="Enter your prompt" />
-                    <button className={styles.send} onClick={handleClick}>
-                        Send
-                    </button>
-                </div>
-            </div>
+            <ChatMessages chat={chat} isLoading={isLoading} isError={isError} isEmpty={isEmpty} />
+            <SenderArea
+                inputValue={inputValue}
+                isLoading={isLoading}
+                handleInputChange={handleInputChange}
+                handleClick={handleClick}
+                handleClearChat={handleClearChat}
+            />
         </div>
     );
-};
+}
