@@ -1,4 +1,3 @@
-// Main.tsx
 import React, { useState, ChangeEvent, useEffect, useCallback } from 'react';
 import GeminiApi from '../api/GeminiApi';
 import styles from '../page.module.css';
@@ -16,24 +15,30 @@ export default function Main() {
     const [isError, setIsError] = useState(false);
 
     const handleClick = useCallback(() => {
-        if (prompt == '') {
+        if (inputValue === '') {
             setIsEmpty(true);
         }
         setPrompt(inputValue);
         setInputValue('');
-    }, [inputValue, prompt]);
+    }, [inputValue]);
 
-    const fetchData = async () => {
+    const handleEnter = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleClick();
+        }
+    }, [handleClick]);
+
+    const fetchData = useCallback(async () => {
         setIsLoading(true);
         try {
             const response: Message = await GeminiApi(prompt);
-            setChat((prevChat: Message[]) => [...prevChat, response]);
+            setChat(prevChat => [...prevChat, response]);
         } catch (error) {
             setIsError(true);
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [prompt]);
 
     const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
@@ -48,19 +53,28 @@ export default function Main() {
             fetchData();
             setIsEmpty(false);
         }
-    }, [prompt]);
+    }, [fetchData, prompt]);
 
     return (
         <div className={styles.container}>
             <div className={styles.navBar}>
                 <a>Chat</a>
             </div>
-            <ChatMessages chat={chat} isLoading={isLoading} isError={isError} isEmpty={isEmpty} />
+
+            <ChatMessages
+                chat={chat}
+                isLoading={isLoading}
+                isError={isError}
+                isEmpty={isEmpty}
+                inputValue={inputValue}
+            />
+
             <SenderArea
                 inputValue={inputValue}
                 isLoading={isLoading}
                 handleInputChange={handleInputChange}
                 handleClick={handleClick}
+                handleEnter={handleEnter}
                 handleClearChat={handleClearChat}
             />
         </div>

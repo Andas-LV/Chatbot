@@ -1,4 +1,3 @@
-// ChatMessages.tsx
 import React from 'react';
 import styles from '../page.module.css';
 
@@ -7,9 +6,10 @@ type ChatMessagesProps = {
     isLoading: boolean;
     isError: boolean;
     isEmpty: boolean;
+    inputValue: string;
 };
 
-const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, isLoading, isError, isEmpty }) => (
+const ChatMessages: React.FC<ChatMessagesProps> = ({ chat, isLoading, isError, isEmpty, inputValue }) => (
     <div className={styles.messagesArea}>
         {chat.map((message, index) => (
             <div key={index} className={styles.messageOne}>
