@@ -12,9 +12,11 @@ type SenderAreaProps = {
     handleClick: () => void;
     handleEnter: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     handleClearChat: () => void;
+    handleDownload: () => void;
 };
 
-const SenderArea: React.FC<SenderAreaProps> = ({ inputValue, isLoading, handleInputChange, handleClick, handleClearChat, handleEnter }) => {
+const SenderArea: React.FC<SenderAreaProps> = ({inputValue, isLoading, handleInputChange,
+        handleClick, handleClearChat, handleEnter, handleDownload}) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = (isOpen: boolean) => {
@@ -30,7 +32,7 @@ const SenderArea: React.FC<SenderAreaProps> = ({ inputValue, isLoading, handleIn
             return (
                 <div className={styles.dropdown}>
                     <FaTrash className={styles.clearIcon} onClick={handleClearChat} title={"Clear Chat"}/>
-                    <IoMdDownload className={styles.downloadIcon} title={"Download Chat"}/>
+                    <IoMdDownload className={styles.downloadIcon} onClick={handleDownload} title={"Download Chat"}/>
                 </div>
             );
         }

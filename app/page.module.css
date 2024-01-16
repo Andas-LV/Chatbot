@@ -80,7 +80,7 @@
     border-radius: 7px;
     padding: 5px;
     height: 40px;
-    width: 320px;
+    max-width: 320px;
     gap: 20px;
     border: 1px solid #2E2F3A;
 }
@@ -111,9 +111,8 @@
 .dropdown {
     display: flex;
     position: absolute;
-    left: 240px;
+    left: 250px;
     bottom: 50px;
-    transition:all 2s ease-in-out;
     gap: 15px;
     background-color: #676767;
     padding: 10px;

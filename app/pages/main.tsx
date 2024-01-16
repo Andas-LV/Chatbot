@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, useEffect, useCallback } from 'react';
+import { jsPDF } from 'jspdf';
 import GeminiApi from '../api/GeminiApi';
 import styles from '../page.module.css';
 import ChatMessages from '../components/ChatMessages';
@@ -27,6 +28,16 @@ export default function Main() {
             handleClick();
         }
     }, [handleClick]);
+
+    const handleDownload = useCallback(() => {
+        const pdf = new jsPDF();
+
+        const dataString = chat.join('\n');
+
+        pdf.text(dataString, 10, 10);
+
+        pdf.save('chat.pdf');
+    }, [chat])
 
     const fetchData = useCallback(async () => {
         setIsLoading(true);
@@ -76,6 +87,7 @@ export default function Main() {
                 handleClick={handleClick}
                 handleEnter={handleEnter}
                 handleClearChat={handleClearChat}
+                handleDownload={handleDownload}
             />
         </div>
     );
