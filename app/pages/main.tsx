@@ -1,9 +1,9 @@
 import React, { useState, ChangeEvent, useEffect, useCallback } from 'react';
 import { jsPDF } from 'jspdf';
-import GeminiApi from '../api/GeminiApi';
 import styles from '../page.module.css';
 import ChatMessages from '../components/ChatMessages';
 import SenderArea from '../components/SenderArea';
+import GeminiApi from "@/app/api/GeminiApi";
 
 type Message = string;
 
